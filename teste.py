@@ -1,5 +1,4 @@
 import os
-a = [[50], [50]];
 
 
 def main():
@@ -7,14 +6,22 @@ def main():
 
     with open("Mapas\mapa50.txt", "r") as arquivo:
         linhas = arquivo.readlines()
-        primeira_linha = arquivo.readline()
-        tamanho_matriz = primeira_linha[:2]
+        x = linhas[0][0 : 2]
+        y = linhas[0][3 : 5]
         
-        matriz = [[tamanho_matriz],[tamanho_matriz]]
+        
+    matriz = [[x],[y]]
     
+
+    count = 0
+
     for linha in linhas:
-        teste = linha
-        matriz.append([testado for testado in teste])
+        linhamatriz = []
+        for i in linha:
+            if i != "\n":
+            
+                linhamatriz.append(i)
+        matriz.append(linhamatriz)
            
     for i in matriz:
         print(i)
