@@ -1,4 +1,4 @@
-1 Passo - Ler o mapa para a matriz
+1 Passo - Ler o mapa para a matriz - Concluido
 2 Passo - Caminhar pelo mapa
 3 Passo - Verificações de se é possível andar para tal direção
 4 Passo - Troca de direção (\/)
