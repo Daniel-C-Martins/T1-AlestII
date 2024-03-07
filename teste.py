@@ -13,8 +13,12 @@ def main():
 
         
     for linha in arquivo_linhas:
-        conteudo = linha
-        matriz.append([caractere for caractere in conteudo])
+        linhamatriz = []
+        for i in linha:
+            if i != "\n":
+
+                linhamatriz.append(i)
+        matriz.append(linhamatriz)
            
     for i in matriz:
         print(i)
