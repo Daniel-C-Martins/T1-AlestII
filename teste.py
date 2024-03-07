@@ -7,9 +7,9 @@ def main():
         arquivo_linhas = arquivo.readlines()
         primeira_linha = arquivo.readline()
         tamanho_matriz_x = primeira_linha[0 : 2]
-        tamanho_matriz_y = primeira_linha[3 : 5]
+        tamanho_matriz_z = primeira_linha[3 : 5]
         
-        matriz = [[tamanho_matriz_x],[tamanho_matriz_y]]
+        matriz = [[tamanho_matriz_x],[tamanho_matriz_z]]
 
         
     for linha in arquivo_linhas:
