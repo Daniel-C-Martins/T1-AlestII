@@ -1,0 +1,9 @@
+1 Passo - Ler o mapa para a matriz
+2 Passo - Caminhar pelo mapa
+3 Passo - Verificações de se é possível andar para tal direção
+4 Passo - Troca de direção (\/)
+5 Passo - Método para pegar o dinheiro
+6 Passo - Retirar do mapa o dinheiro sempre que passar por ele
+7 Passo - Testes com todos os mapas
+
+Extra - toda vez que passar por uma posição no mapa, pintar a região
