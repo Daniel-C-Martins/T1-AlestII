@@ -31,23 +31,25 @@ def acha_primeira_localização():
 
     return localização
 
-
 def troca_direcao(x, y):
     #Teste de troca posição
-    if matriz[x][y] == "\\" or "/":
+    if matriz[x][y] == "\\" or matriz[x][y] == "/":
         return True
     else:
         return False
     
 def anda_direita(posicao_x, posicao_y):
-    for i in range(0, len(matriz[0])):
+    for i in range(posicao_y, len(matriz[0])):
         if troca_direcao(posicao_x, i):
             anda_cima(posicao_x, i)
+            break
         if matriz[posicao_x][i] == type(int):
             #Falta coisa
             acumulador += matriz[posicao_x][i]
 
 def anda_cima(posicao_x, posicao_y):
+    print(posicao_x)
+    print(posicao_y)
     print("Hello World")
     # for i in range(posicao_x, 0): #podemos otimizar
     #     if troca_direcao(i, posicao_y):
@@ -71,8 +73,6 @@ def main():
 
     anda_direita(primeira_posicao_x, primeira_posicao_y)
     
-    
-    # mudar_rota = troca_direcao(proximo_x, proximo_y)
 
 
     
