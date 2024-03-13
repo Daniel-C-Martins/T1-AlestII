@@ -48,12 +48,13 @@ def anda_direita(posicao_x, posicao_y):
             acumulador += matriz[posicao_x][i]
 
 def anda_cima(posicao_x, posicao_y):
-    for i in range(posicao_x, 0): #podemos otimizar
-        if troca_direcao(i, posicao_y):
-            exit()
-        if matriz[i][posicao_y] == type(int):
-            #Falta coisa
-            acumulador += matriz[i][posicao_y]
+    print("Hello World")
+    # for i in range(posicao_x, 0): #podemos otimizar
+    #     if troca_direcao(i, posicao_y):
+    #         exit()
+    #     if matriz[i][posicao_y] == type(int):
+    #         #Falta coisa
+    #         acumulador += matriz[i][posicao_y]
 
 def main():
 
@@ -61,7 +62,7 @@ def main():
     os.system("cls")
 
     le_mapa()
-    
+
     mostra_matriz()
     
 
