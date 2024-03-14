@@ -8,7 +8,7 @@ money = 0
 
 #Função responsável por ler o mapa.txt para uma matriz
 def read_map():
-    with open("Mapas\map50.txt", "r") as archive: #Leitura das linhas do archive txt para uma variável 
+    with open("Mapas\map50.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
         archive_lines = archive.readlines()
         
     for lines in archive_lines:    #"For" responsável por colocar as linhas na matriz
@@ -152,10 +152,10 @@ def main():
     read_map()
     display_matrix()
     
-    # first_location_x = find_first_location()
-    # first_location_y = 0
+    first_location_x = find_first_location()
+    first_location_y = 0
 
-    # move_right(first_location_x, first_location_y)
+    move_right(first_location_x, first_location_y)
     
 if __name__ == "__main__":
   main()
