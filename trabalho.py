@@ -2,7 +2,6 @@ import os
 
 matriz = []
 acumulador = 0
-list = []
 
 def le_mapa():
     #Leitura do mapa para a matriz
