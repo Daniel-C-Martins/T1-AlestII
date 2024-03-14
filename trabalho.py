@@ -1,40 +1,45 @@
 import os
 
 #Variáveis globais importantes
-matriz = []
-acumulador = 0
+map = []
+money = 0
 
 #Funções de leitura do mapa
 
 #Função responsável por ler o mapa.txt para uma matriz
-def le_mapa():
-    with open("Mapas\mapa50.txt", "r") as arquivo: #Leitura das linhas do arquivo txt para uma variável 
-        arquivo_linhas = arquivo.readlines()
+def read_map():
+    with open("Mapas\map50.txt", "r") as archive: #Leitura das linhas do archive txt para uma variável 
+        archive_lines = archive.readlines()
         
-    for linha in arquivo_linhas:    #"For" responsável por colocar as linhas na matriz
-        linhamatriz = []
-        for i in linha:             
+    for lines in archive_lines:    #"For" responsável por colocar as linhas na matriz
+        map_lines = []
+        for i in lines:             
             if i != "\n":           #"if" que nos permite fazer verificações na leitura
-                linhamatriz.append(i)
-        matriz.append(linhamatriz)
+                map_lines.append(i)
+        map.append(map_lines)
 
 #Função responsável por mostrar na tela a matriz
-def mostra_matriz(): 
-    for i in matriz:   #"For" simples para mostrar a matriz na tela
+def display_matrix(): 
+    for i in map:   #"For" simples para mostrar a matriz na tela
         print(i)
 
+#Função responsável por mostrar quanto dinheiro foi recuperado
+def display_saved_money():
+    print(money)
+
 #Função responsável por encotrar onde se deve iniciar o caminhamento no mapa
-def acha_primeira_localização():
+def find_first_location():
     count = 0
-    for i in matriz:         #"For" que percorre a primeira coluna da matriz até encontrar o inicio do mapa "-"
+    for i in map:         #"For" que percorre a primeira coluna da map até encontrar o inicio do mapa "-"
         if i[0] == "-":
-            localização = count
+            location = count
         count = count + 1 
-    return localização      #Retorna a coordenada em X(linha) do inicio do mapa 
+    return location      #Retorna a coordenada em X(linha) do inicio do mapa 
 
 #Função responsável por finalizar o programa
-def fim(posicao_x, posicao_y):
-    if matriz[posicao_x][posicao_y] == "#": #Teste para saber se chegamos ao final do mapa 
+def end(coord_x, coord_y):
+    if map[coord_x][coord_y] == "#": #Teste para saber se chegamos ao final do mapa 
+        display_saved_money()
         exit()                              #Caso o teste seja verdadeiro, fecha o programa
 
 
@@ -43,16 +48,16 @@ def fim(posicao_x, posicao_y):
     
 #Fumção responsável por testar se estamos caminhando por uma "\\"
 #O que indica que devemos mudar a direção do caminhamento
-def testa_barra_invertida(x,y):
-    if matriz[x][y] == "\\":       #Teste para saber se chegamos em uma "quina" do mapa
+def test_backslah(x,y):
+    if map[x][y] == "\\":       #Teste para saber se chegamos em uma "quina" do mapa
         return True
     else:
         return False 
 
 #Fumção responsável por testar se estamos caminhando por uma "/"
 #O que indica que devemos mudar a direção do caminhamento
-def testa_barra_normal(x,y):
-    if matriz[x][y] == "/":        #Teste para saber se chegamos em uma "quina" do mapa
+def test_slash(x,y):
+    if map[x][y] == "/":        #Teste para saber se chegamos em uma "quina" do mapa
         return True
     else:
         return False
@@ -61,100 +66,96 @@ def testa_barra_normal(x,y):
 
 #Funções para caminnhar na matriz
 
-#Função responsável por fazer o caminhamento para a direita na matriz           
-def anda_direita(posicao_x, posicao_y):
+#Função responsável por fazer o caminhamento para a direita na matriz         
+def move_right(coord_x, coord_y):
     print("andando pra direita")
 
-    for i in range(posicao_y, len(matriz[0])):  #Percorre a matriz para a direita apenas em Y(colunas)
-        fim(posicao_x, i)                   
+    for i in range(coord_y, len(map[0])):  #Percorre a matriz para a direita apenas em Y(colunas)
+        end(coord_x, i)                   
                                           
-        if matriz[posicao_x][i].isdigit():  
-            print(matriz[posicao_x][i])
+        if map[coord_x][i].isdigit():  
+            print(map[coord_x][i])
 
-        if testa_barra_normal(posicao_x,i):
-            anda_cima(posicao_x - 1, i)
+        if test_slash(coord_x,i):
+            move_up(coord_x - 1, i)
             break
-        if testa_barra_invertida(posicao_x, i):
-            anda_baixo(posicao_x + 1, i)
+        if test_backslah(coord_x, i):
+            move_down(coord_x + 1, i)
             break
 
 #Função responsável por fazer o caminhamento para cima na matriz    
-def anda_cima(posicao_x, posicao_y):
+def move_up(coord_x, coord_y):
     print("andando pra cima")
 
-    for i in range(posicao_x, 0, -1): #podemos otimizar
-        fim(i, posicao_y)
+    for i in range(coord_x, 0, -1): #podemos otimizar
+        end(i, coord_y)
             
-        if matriz[i][posicao_y].isdigit():
-            print(matriz[i][posicao_y])
+        if map[i][coord_y].isdigit():
+            print(map[i][coord_y])
 
-        if testa_barra_invertida(i, posicao_y):
-            anda_esquerda(i, posicao_y - 1)
+        if test_backslah(i, coord_y):
+            move_left(i, coord_y - 1)
             break
-        if testa_barra_normal(i, posicao_y):
-            anda_direita(i, posicao_y + 1)
+        if test_slash(i, coord_y):
+            move_right(i, coord_y + 1)
             break
         
 #Função responsável por fazer o caminhamento para a esquerda na matriz           
-def anda_esquerda(posicao_x, posicao_y):
+def move_left(coord_x, coord_y):
     print("andando pra esquerda")
 
-    for i in range(posicao_y, 0, -1):
-        fim(posicao_x, i)
+    for i in range(coord_y, 0, -1):
+        end(coord_x, i)
             
-        if matriz[posicao_x][i].isdigit():
-            print(matriz[posicao_x][i])
+        if map[coord_x][i].isdigit():
+            print(map[coord_x][i])
 
-        if testa_barra_invertida(posicao_x, i):
-            anda_cima(posicao_x - 1, i)
+        if test_backslah(coord_x, i):
+            move_up(coord_x - 1, i)
             break
-        if testa_barra_normal(posicao_x, i):
-            anda_baixo(posicao_x + 1, i)
+        if test_slash(coord_x, i):
+            move_down(coord_x + 1, i)
             break
         
 #Função responsável por fazer o caminhamento para baixo na matriz    
-def anda_baixo(posicao_x, posicao_y):
+def move_down(coord_x, coord_y):
     print("andando pra baixo")
 
-    for i in range(posicao_x, len(matriz[0])):
-        fim(i, posicao_y)
+    for i in range(coord_x, len(map[0])):
+        end(i, coord_y)
             
-        if matriz[i][posicao_y].isdigit():
-            print(matriz[i][posicao_y])
+        if map[i][coord_y].isdigit():
+            print(map[i][coord_y])
 
-        if testa_barra_invertida(i, posicao_y):
-            anda_direita(i, posicao_y + 1)
+        if test_backslah(i, coord_y):
+            move_right(i, coord_y + 1)
             break
-        if testa_barra_normal(i, posicao_y):
-            anda_esquerda(i, posicao_y - 1)
+        if test_slash(i, coord_y):
+            move_left(i, coord_y - 1)
             break
 
 
 #Função responsável por garantir a contagem certa do dinheiro recuperado
-# def conta_dinheiro(posicao_x, posicao_y):
-
-#     for i in range (0, len(matriz[0])):
-#         if matriz[posicao_x][posicao_y].isdigit():
-#             acumulador_secundario = ac + matriz[posicao_x][posicao_y]
-#         if testa_barra_invertida(posicao_x, posicao_y) or testa_barra_normal(posicao_x, posicao_y):
-#             break
-#         else:
-#             if not matriz[posicao_x - 1][posicao_y].isdigit():  
-#                 acumulador += int(b)   
-#                 acumulador_secundario = ""
+def accumulate_money(coord_x, coord_y):
+    count = ""
+    if map[coord_x][coord_y].isdigit():
+        count = count + map[coord_x][coord_y]
+    else:
+        if not map[coord_x - 1][coord_y].isdigit():  
+            money += int(count)   
+            count = ""
 
 # Função Main()
 def main():    
     os.system("cls")
 
-    le_mapa()
-    mostra_matriz()
+    read_map()
+    display_matrix()
     
-    primeira_posicao_x = acha_primeira_localização()
-    primeira_posicao_y = 0
+    # first_location_x = find_first_location()
+    # first_location_y = 0
 
-    anda_direita(primeira_posicao_x, primeira_posicao_y)
-    print(acumulador)
+    # move_right(first_location_x, first_location_y)
     
 if __name__ == "__main__":
   main()
