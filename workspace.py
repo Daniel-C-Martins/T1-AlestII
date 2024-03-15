@@ -8,20 +8,20 @@ money = 0
 
 #Função responsável por ler o mapa.txt para uma matriz
 def read_map():
-    with open("Mapas\map50.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
+    with open("Maps\map50.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
         archive_lines = archive.readlines()
         
     for lines in archive_lines:    #"For" responsável por colocar as linhas na matriz
         map_lines = []
         for i in lines:             
-            if i != "\n":           #"if" que nos permite fazer verificações na leitura
-                map_lines.append(i)
+            if i != "\n":
+                map_lines.append(i)     #"if" que nos permite fazer verificações na leitura
         map.append(map_lines)
 
 #Função responsável por mostrar na tela a matriz
 def display_matrix(): 
     for i in map:   #"For" simples para mostrar a matriz na tela
-        print(i)
+        print("".join(i))
 
 #Função responsável por mostrar quanto dinheiro foi recuperado
 def display_saved_money():
@@ -68,13 +68,21 @@ def test_slash(x,y):
 
 #Função responsável por fazer o caminhamento para a direita na matriz         
 def move_right(coord_x, coord_y):
+    global money
+    count = "0"
+
     print("andando pra direita")
 
     for i in range(coord_y, len(map[0])):  #Percorre a matriz para a direita apenas em Y(colunas)
         end(coord_x, i)                   
                                           
         if map[coord_x][i].isdigit():  
-            print(map[coord_x][i])
+            count += map[coord_x][i]
+        else:
+            if count != "0":
+                print(count)
+            money += int(count)
+            count = "0"
 
         if test_slash(coord_x,i):
             move_up(coord_x - 1, i)
@@ -85,13 +93,20 @@ def move_right(coord_x, coord_y):
 
 #Função responsável por fazer o caminhamento para cima na matriz    
 def move_up(coord_x, coord_y):
+    global money
+    count = "0"
     print("andando pra cima")
-
+    
     for i in range(coord_x, 0, -1): #podemos otimizar
         end(i, coord_y)
             
         if map[i][coord_y].isdigit():
-            print(map[i][coord_y])
+            count += map[i][coord_y]
+        else:
+            if count != "0":
+                print(count)
+            money += int(count)
+            count = "0"
 
         if test_backslah(i, coord_y):
             move_left(i, coord_y - 1)
@@ -102,13 +117,20 @@ def move_up(coord_x, coord_y):
         
 #Função responsável por fazer o caminhamento para a esquerda na matriz           
 def move_left(coord_x, coord_y):
+    global money
+    count ="0"
     print("andando pra esquerda")
 
     for i in range(coord_y, 0, -1):
         end(coord_x, i)
             
         if map[coord_x][i].isdigit():
-            print(map[coord_x][i])
+            count += map[coord_x][i]
+        else:
+            if count != "0":
+                print(count)
+            money += int(count)
+            count = "0"
 
         if test_backslah(coord_x, i):
             move_up(coord_x - 1, i)
@@ -119,13 +141,20 @@ def move_left(coord_x, coord_y):
         
 #Função responsável por fazer o caminhamento para baixo na matriz    
 def move_down(coord_x, coord_y):
+    global money
+    count = "0"
     print("andando pra baixo")
 
     for i in range(coord_x, len(map[0])):
         end(i, coord_y)
             
         if map[i][coord_y].isdigit():
-            print(map[i][coord_y])
+            count += (map[i][coord_y])
+        else:
+            if count != "0":
+                print(count)
+            money += int(count)
+            count = "0"
 
         if test_backslah(i, coord_y):
             move_right(i, coord_y + 1)
@@ -135,18 +164,10 @@ def move_down(coord_x, coord_y):
             break
 
 
-#Função responsável por garantir a contagem certa do dinheiro recuperado
-def accumulate_money(coord_x, coord_y):
-    count = ""
-    if map[coord_x][coord_y].isdigit():
-        count = count + map[coord_x][coord_y]
-    else:
-        if not map[coord_x - 1][coord_y].isdigit():  
-            money += int(count)   
-            count = ""
 
 # Função Main()
-def main():    
+def main():
+
     os.system("cls")
 
     read_map()
@@ -156,6 +177,7 @@ def main():
     first_location_y = 0
 
     move_right(first_location_x, first_location_y)
+    print(money)
     
 if __name__ == "__main__":
   main()
