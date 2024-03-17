@@ -8,9 +8,10 @@ money = 0
 
 #Função responsável por ler o mapa.txt para uma matriz
 def read_map():
-    with open("Maps\map750.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
+    global map
+    with open("Maps\map500.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
         archive_lines = archive.readlines()
-        
+
     for lines in archive_lines:    #"For" responsável por colocar as linhas na matriz
         map_lines = []
         for i in lines:             
@@ -79,8 +80,8 @@ def move_right(coord_x, coord_y):
         if map[coord_x][i].isdigit():  
             count += map[coord_x][i]
         else:
-            if count != "0":
-                print(count)
+            # if count != "0":
+            #     print(count)
             money += int(count)
             count = "0"
 
@@ -103,8 +104,8 @@ def move_up(coord_x, coord_y):
         if map[i][coord_y].isdigit():
             count += map[i][coord_y]
         else:
-            if count != "0":
-                print(count)
+            # if count != "0":
+            #     print(count)
             money += int(count)
             count = "0"
 
@@ -127,8 +128,8 @@ def move_left(coord_x, coord_y):
         if map[coord_x][i].isdigit():
             count += map[coord_x][i]
         else:
-            if count != "0":
-                print(count)
+            # if count != "0":
+            #     print(count)
             money += int(count)
             count = "0"
 
@@ -151,8 +152,8 @@ def move_down(coord_x, coord_y):
         if map[i][coord_y].isdigit():
             count += (map[i][coord_y])
         else:
-            if count != "0":
-                print(count)
+            # if count != "0":
+            #     print(count)
             money += int(count)
             count = "0"
 
