@@ -16,7 +16,7 @@ count = "0"
 #Funções de leitura do mapa
 #Função responsável por ler o mapa.txt para uma matriz
 def read_map():
-    with open("Maps\map2000.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
+    with open("Maps\map100.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
         archive_lines = archive.readlines()
         
     for lines in archive_lines:         #"For" responsável por ler cada linha
@@ -73,66 +73,66 @@ def test_slash(x,y):
 def move_right(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
 
-    for i in range(coord_y, len(map[1]) + 1):  #Percorre a matriz para a direita apenas em Y(colunas)
-        if end(coord_x, i):
-            end_controller = True
+    for i in range(coord_y, len(map[1]) + 1):   #Percorre o mapa para a direita apenas em Y(colunas)
+        if end(coord_x, i):         #Chama o método responsável por testar se chegamos no "#""
+            end_controller = True   #Muda o controlador para True e volta para o loop inicial
             break
 
-        accumulate_money(coord_x, i)
+        accumulate_money(coord_x, i)    #Chama o método responsável por contar o dinheiro recuperado
 
-        if test_slash(coord_x,i):
-            way = "up"
+        if test_slash(coord_x,i): #Chama o método responsável para saber se estamos passando por uma "/"
+            way = "up"  #Faz a troca para a nova direção correta na variável de controle de direção
             location_x = coord_x - 1
-            location_y = i
+            location_y = i  #Atualiza a localização em X e em Y
             break
-        if test_backslah(coord_x, i):
-            way = "down"
+        if test_backslah(coord_x, i): #Chama o método responsável para saber se estamos passando por uma "\"
+            way = "down"  #Faz a troca para a nova direção correta na variável de controle de direção
             location_x = coord_x + 1
-            location_y = i
+            location_y = i  #Atualiza a localização em X e em Y
             break
   
 #Função responsável por fazer o caminhamento para a left na matriz           
 def move_left(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
 
-    for i in range(coord_y, -1, -1):   
-        if end(coord_x, i):
-            end_controller = True
+    for i in range(coord_y, -1, -1):    #Percorre o mapa para a esquerda apenas em Y(colunas)   
+        if end(coord_x, i):         #Chama o método responsável por testar se chegamos no "#""
+            end_controller = True   #Muda o controlador para True e volta para o loop inicial
             break
-        
-        accumulate_money(coord_x, i)
-        
-        if test_backslah(coord_x, i):
-            way = "up"
-            location_x = coord_x - 1
-            location_y = i
-            break
-        if test_slash(coord_x, i):
-            way = "down"
+
+        accumulate_money(coord_x, i)    #Chama o método responsável por contar o dinheiro recuperado
+
+        if test_slash(coord_x, i): #Chama o método responsável para saber se estamos passando por uma "/"
+            way = "down"  #Faz a troca para a nova direção correta na variável de controle de direção
             location_x = coord_x + 1
-            location_y = i
+            location_y = i  #Atualiza a localização em X e em Y
+            break
+        if test_backslah(coord_x, i): #Chama o método responsável para saber se estamos passando por uma "\"
+            way = "up"  #Faz a troca para a nova direção correta na variável de controle de direção
+            location_x = coord_x - 1
+            location_y = i  #Atualiza a localização em X e em Y
             break 
                            
 #Função responsável por fazer o caminhamento para up na matriz    
 def move_up(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
     
-    for i in range(coord_x, -1, -1): 
-        if end(i, coord_y):
-          end_controller = True
-          break
-
-        accumulate_money(i, coord_y)
-        
-        if test_slash(i, coord_y):
-            way = "right"
-            location_x = i
-            location_y = coord_y + 1
+    for i in range(coord_x, -1, -1):    #Percorre o mapa para cima apenas em X(linhas) 
+        if end(i, coord_y):         #Chama o método responsável por testar se chegamos no "#""
+            end_controller = True   #Muda o controlador para True e volta para o loop inicial
             break
-        if test_backslah(i, coord_y):
-            way = "left"
+
+        accumulate_money(i, coord_y)    #Chama o método responsável por contar o dinheiro recuperado
+        
+        if test_slash(i, coord_y): #Chama o método responsável para saber se estamos passando por uma "/"
+            way = "right"  #Faz a troca para a nova direção correta na variável de controle de direção
             location_x = i
-            location_y = coord_y - 1
+            location_y = coord_y + 1    #Atualiza a localização em X e em Y
+            break
+        if test_backslah(i, coord_y): #Chama o método responsável para saber se estamos passando por uma "\"
+            way = "left"  #Faz a troca para a nova direção correta na variável de controle de direção
+            location_x = i
+            location_y = coord_y - 1    #Atualiza a localização em X e em Y
             break
         
 
@@ -141,22 +141,22 @@ def move_up(coord_x, coord_y):
 def move_down(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
 
-    for i in range(coord_x, len(map) + 1):
-        if end(i, coord_y):
-            end_controller = True
+    for i in range(coord_x, len(map) + 1):  #Percorre o mapa para baixo apenas em X(linhas) 
+        if end(i, coord_y):         #Chama o método responsável por testar se chegamos no "#""
+            end_controller = True   #Muda o controlador para True e volta para o loop inicial
             break
 
-        accumulate_money(i, coord_y)
+        accumulate_money(i, coord_y)    #Chama o método responsável por contar o dinheiro recuperado
         
-        if test_slash(i, coord_y):
-            way = "left"
+        if test_slash(i, coord_y): #Chama o método responsável para saber se estamos passando por uma "/"
+            way = "left"  #Faz a troca para a nova direção correta na variável de controle de direção
             location_x = i
-            location_y = coord_y - 1
+            location_y = coord_y - 1    #Atualiza a localização em X e em Y
             break
-        if test_backslah(i, coord_y):
-            way = "right"
+        if test_backslah(i, coord_y): #Chama o método responsável para saber se estamos passando por uma "\"
+            way = "right"  #Faz a troca para a nova direção correta na variável de controle de direção
             location_x = i
-            location_y = coord_y + 1
+            location_y = coord_y + 1    #Atualiza a localização em X e em Y
             break
         
 
@@ -169,11 +169,11 @@ def display_saved_money():
 #Função responsável acumular o dinheiro recolhido
 def accumulate_money(coord_x, coord_y):
     global count, money
-    if map[coord_x][coord_y].isdigit():
-        count += map[coord_x][coord_y]
+    if map[coord_x][coord_y].isdigit(): #Testa se a posição que estamos é um número
+        count += map[coord_x][coord_y]  #Concatena no acumulador o número
     else:
-        money += int(count)
-        count = "0"
+        money += int(count) #Converte o acumulador para inteiro e guarda na variável do dinheiro
+        count = "0" #Reset no acumulador
 
 # Função Main()
 def main():
