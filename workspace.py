@@ -6,7 +6,7 @@ location_x = 0
 location_y = 0
 
 #Variáveis globais de direção e controle 
-way = "right"
+way = "right" #inicializado como "right", pois, o mapa sempre começa indo para a direita
 end_controller = False
 
 #Variável globais relacionadas com dinheiro
@@ -16,7 +16,7 @@ count = "0"
 #Funções de leitura do mapa
 #Função responsável por ler o mapa.txt para uma matriz
 def read_map():
-    with open("Maps\map100.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
+    with open("Maps\map2000.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
         archive_lines = archive.readlines()
         
     for lines in archive_lines:         #"For" responsável por ler cada linha
@@ -164,7 +164,42 @@ def move_down(coord_x, coord_y):
 #Funções relacionadas com dinheiro
 #Função responsável por mostrar quanto dinheiro foi recuperado
 def display_saved_money():
-    print(money)
+    global money
+    thousandion = 0  
+    hundred_thousand = 0
+    ten_thousand = 0
+    thousand = 0
+    hundred = 0
+    ten = 0
+    one = 0
+
+    #Esquema padrão para descobrir a quantidade de cada unidade de medida do valor total
+    aux = money
+    if aux >= 1000000:
+        thousandion = aux // 1000000
+        aux = aux % 1000000
+    if aux >= 100000:
+        hundred_thousand = aux // 100000
+        aux = aux % 100000
+    if aux >= 10000:
+        ten_thousand = aux // 10000
+        aux = aux % 10000
+    if aux >= 1000:
+        thousand = aux // 1000
+        aux = aux % 1000
+    if aux >= 100:
+        hundred = aux // 100
+        aux = aux % 100
+    if aux >= 10:
+        ten = aux // 10
+        aux = aux % 10
+    if aux >= 1:
+        one = aux // 1
+        aux = 0
+
+    #Print formatado para acomodar até centenas de milhões de unidade de medida 
+    print("O total recuperado pela polícia no mapa foi:")
+    print("R$ " + str(thousandion) + "."+ str(hundred_thousand) + str(ten_thousand) + str(thousand) + "." + str(hundred) + str(ten) + str(one))
 
 #Função responsável acumular o dinheiro recolhido
 def accumulate_money(coord_x, coord_y):
@@ -175,14 +210,9 @@ def accumulate_money(coord_x, coord_y):
         money += int(count) #Converte o acumulador para inteiro e guarda na variável do dinheiro
         count = "0" #Reset no acumulador
 
-# Função Main()
-def main():
-    global way, end_controller, location_x, location_y
-    os.system("cls")
 
-    read_map()
-    #display_matrix()
-    
+def controller():
+    global way, end_controller, location_x, location_y
     location_x = find_first_location()
 
     while(end_controller == False):
@@ -193,9 +223,16 @@ def main():
       if way == "up":
         move_up(location_x, location_y)
       if way == "down":
-        move_down(location_x, location_y) 
+        move_down(location_x, location_y)
 
-    print("Caminhamento concluido")
+# Função Main()
+def main():
+    os.system("cls")
+
+    read_map()
+    #display_matrix()
+    
+    controller()
     display_saved_money()
     exit()
     
