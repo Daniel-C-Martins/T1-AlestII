@@ -15,8 +15,8 @@ count = "0"
 
 #Funções de leitura do mapa
 #Função responsável por ler o mapa.txt para uma matriz
-def read_map():
-    with open("Maps\map2000.txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
+def read_map(chosen_map):
+    with open("Maps\\" + chosen_map +".txt", "r") as archive: #Leitura das linhas do arquivo txt para uma variável 
         archive_lines = archive.readlines()
         
     for lines in archive_lines:         #"For" responsável por ler cada linha
@@ -40,14 +40,6 @@ def find_first_location():
         count = count + 1 
     return location      #Retorna a coordenada em X(linha) do inicio do mapa 
 
-#Função responsável por finalizar o programa
-def end(coord_x, coord_y):
-    if map[coord_x][coord_y] == "#": #Teste para saber se chegamos ao final do mapa
-        return True
-    else:
-        return False
-
-
 
 
 #Funções de verificação para as trocas de direção    
@@ -68,8 +60,9 @@ def test_slash(x,y):
         return False
 
 
-#Funções para caminnhar na matriz
-#Função responsável por fazer o caminhamento para a right na matriz         
+
+#Funções para caminhar na matriz
+#Função responsável por fazer o caminhamento para a direita na matriz         
 def move_right(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
 
@@ -91,7 +84,7 @@ def move_right(coord_x, coord_y):
             location_y = i  #Atualiza a localização em X e em Y
             break
   
-#Função responsável por fazer o caminhamento para a left na matriz           
+#Função responsável por fazer o caminhamento para a esquerda na matriz           
 def move_left(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
 
@@ -113,7 +106,7 @@ def move_left(coord_x, coord_y):
             location_y = i  #Atualiza a localização em X e em Y
             break 
                            
-#Função responsável por fazer o caminhamento para up na matriz    
+#Função responsável por fazer o caminhamento para cima na matriz    
 def move_up(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
     
@@ -137,7 +130,7 @@ def move_up(coord_x, coord_y):
         
 
         
-#Função responsável por fazer o caminhamento para down na matriz    
+#Função responsável por fazer o caminhamento para baixo na matriz    
 def move_down(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
 
@@ -197,7 +190,7 @@ def display_saved_money():
         one = aux // 1
         aux = 0
 
-    #Print formatado para acomodar até centenas de milhões de unidade de medida 
+    #Print formatado para acomodar até centenas de milhões como unidade de medida 
     print("O total recuperado pela polícia no mapa foi:")
     print("R$ " + str(thousandion) + "."+ str(hundred_thousand) + str(ten_thousand) + str(thousand) + "." + str(hundred) + str(ten) + str(one))
 
@@ -211,30 +204,82 @@ def accumulate_money(coord_x, coord_y):
         count = "0" #Reset no acumulador
 
 
+
+#Funções gerais do programa
+#Função responsável pelo menu de opções
+def menu():
+    text = """
+    ==========================================
+    Escolha a opção de mapa que deseja testar:
+    ==========================================
+    1. Mapa 50x50
+    2. Mapa 100x100
+    3. Mapa 200x200
+    4. Mapa 500x500
+    5. Mapa 750x750
+    6. Mapa 1000x1000
+    7. Mapa 1500x1500
+    8. Mapa 2000x2000 
+    """
+    return text
+
+#função responsável por dar ao usuário a possibilidade de escolher o mapa que deseja percorrer
+def start():
+    option = 0
+    user_input = input(menu())  #Recebe a opção do usuário
+
+    switcher = {
+        1: "map50",
+        2: "map100",
+        3: "map200",
+        4: "map500",
+        5: "map750",
+        6: "map1000",
+        7: "map1500",
+        8: "map2000"
+    }
+    
+    if user_input.isdigit():    #Teste para saber se o usuário digitou um número
+        option = switcher.get(int(user_input))
+    if option:  #Teste para saber se o número digitado é válido
+        return option
+    else:
+        print("Opção inválida")
+        return start()  #Chama recursivamente novamente o método caso o número seja inválido
+
+#Função responsável por finalizar o programa
+def end(coord_x, coord_y):
+    if map[coord_x][coord_y] == "#": #Teste para saber se chegamos ao final do mapa
+        return True
+    else:
+        return False
+    
+#Função responsável pelo loop que controla o caminhamento e o fim do código
 def controller():
     global way, end_controller, location_x, location_y
-    location_x = find_first_location()
+    location_x = find_first_location()  #Recebe a posição do início do mapa
 
-    while(end_controller == False):
+    while(end_controller == False): #Loop que controla o caminhamento pelo mapa
       if way == "right":
-        move_right(location_x, location_y)
+        move_right(location_x, location_y)  #Chama o caminhamento para a direita
       if way == "left":
-        move_left(location_x, location_y)
+        move_left(location_x, location_y)   #Chama o caminhamento para a esquerda
       if way == "up":
-        move_up(location_x, location_y)
+        move_up(location_x, location_y) #Chama o caminhamento para cima
       if way == "down":
-        move_down(location_x, location_y)
+        move_down(location_x, location_y)   #Chama o caminhamento para baixo
+
+
 
 # Função Main()
 def main():
-    os.system("cls")
-
-    read_map()
-    #display_matrix()
-    
-    controller()
-    display_saved_money()
-    exit()
+    os.system("cls") 
+    chosen_map = start()
+    read_map(chosen_map)  #Lê o mapa e "Começa" o código
+    #display_matrix() #Mostra o mapa na tela
+    controller() #Chama o método que controla o caminhamento
+    display_saved_money() #Mostra o total de dinheiro recolhido na tela
+    exit() #Fecha o programa após o fim da execução
     
 if __name__ == "__main__":
   main()
