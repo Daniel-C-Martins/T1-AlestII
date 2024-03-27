@@ -1,4 +1,5 @@
 import os
+from time import process_time
 
 # File usada para análise assintótica das funções
 # Para contagem de operações e geração de gráficos
@@ -14,8 +15,12 @@ end_controller = False
 money = 0
 count = "0"
 
+count_op = 0
+
 
 def read_map(chosen_map):
+    global count_op
+    count_op += 1
     with open("Maps\\" + chosen_map +".txt", "r") as archive: 
         archive_lines = archive.readlines()
     # Θ(n2) Os dois laços de repetição da função crescem em relação a N (Tamanho do mapa)    
@@ -28,12 +33,16 @@ def read_map(chosen_map):
 
 
 def display_matrix():
+    global count_op
+    count_op += 1
     # Θ(n) O laço de repetição cresce de acordo com o tamanho de N (Tamanho do mapa)  
     for line in map:   
         print("".join(line))
 
 
 def find_first_location():
+    global count_op
+    count_op += 1
     count = 0
     # O(n) Será necessário percorrer o tamanho do mapa para achar o inicio
     # Ω(1) O mapa inicia na primeira linha da primeira coluna
@@ -47,6 +56,8 @@ def find_first_location():
 
 #Funções de verificação para as trocas de direção    
 def test_backslah(x,y):
+    global count_op
+    count_op += 1
     #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
     if map[x][y] == "\\":       
         return True
@@ -55,6 +66,8 @@ def test_backslah(x,y):
 
 
 def test_slash(x,y):
+    global count_op
+    count_op += 1
     #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
     if map[x][y] == "/":        
         return True
@@ -65,11 +78,12 @@ def test_slash(x,y):
 
 #Funções para caminhar na matriz       
 def move_right(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
+    global way, money, end_controller, location_x, location_y, count, count_op
 
     #Ω(1) O laço é quebrado na primeira execução por conta de algum dos testes
     #O(n) O laço precisa percorrer todo o mapa
-    for i in range(coord_y, len(map[1]) + 1):   
+    for i in range(coord_y, len(map[1]) + 1):
+        count_op += 1   
         if end(coord_x, i):        
             end_controller = True   
             break
@@ -89,11 +103,12 @@ def move_right(coord_x, coord_y):
   
           
 def move_left(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
+    global way, money, end_controller, location_x, location_y, count, count_op
 
     #Ω(1) O laço é quebrado na primeira execução por conta de algum dos testes
     #O(n) O laço precisa percorrer todo o mapa
-    for i in range(coord_y, -1, -1):     
+    for i in range(coord_y, -1, -1):
+        count_op += 1     
         if end(coord_x, i):        
             end_controller = True   
             break
@@ -113,11 +128,12 @@ def move_left(coord_x, coord_y):
                            
   
 def move_up(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
+    global way, money, end_controller, location_x, location_y, count, count_op
     
     #Ω(1) O laço é quebrado na primeira execução por conta de algum dos testes
     #O(n) O laço precisa percorrer todo o mapa
-    for i in range(coord_x, -1, -1):     
+    for i in range(coord_x, -1, -1):
+        count_op += 1     
         if end(i, coord_y):        
             end_controller = True   
             break
@@ -137,11 +153,12 @@ def move_up(coord_x, coord_y):
         
    
 def move_down(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
+    global way, money, end_controller, location_x, location_y, count, count_op
 
     #Ω(1) O laço é quebrado na primeira execução por conta de algum dos testes
     #O(n) O laço precisa percorrer todo o mapa
-    for i in range(coord_x, len(map) + 1):   
+    for i in range(coord_x, len(map) + 1):
+        count_op += 1   
         if end(i, coord_y):        
             end_controller = True   
             break
@@ -163,7 +180,8 @@ def move_down(coord_x, coord_y):
 
 #Funções relacionadas com dinheiro
 def display_saved_money():
-    global money
+    global money, count_op
+    count_op += 1
     #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
     thousandion = 0  
     hundred_thousand = 0
@@ -196,11 +214,12 @@ def display_saved_money():
         aux = 0
 
     print("O total recuperado pela polícia no mapa foi:")
-    print("R$ " + str(thousandion) + "."+ str(hundred_thousand) + str(ten_thousand) + str(thousand) + "." + str(hundred) + str(ten) + str(one))
+    print("R$ " + str(thousandion) + "."+ str(hundred_thousand) + str(ten_thousand) + str(thousand) + "." + str(hundred) +str(ten) + str(one))
 
 
 def accumulate_money(coord_x, coord_y):
-    global count, money
+    global count, money, count_op
+    count_op += 1
     #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
     if map[coord_x][coord_y].isdigit():
         count += map[coord_x][coord_y]  
@@ -212,7 +231,9 @@ def accumulate_money(coord_x, coord_y):
 
 #Funções gerais do programa
 def menu():
-    #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso     
+    global count_op
+    count_op += 1
+    #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso 
     text = """
     ==========================================
     Escolha a opção de mapa que deseja testar:
@@ -230,6 +251,8 @@ def menu():
 
 
 def start():
+    global count_op
+    count_op += 1
     #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
     option = 0
     user_input = input(menu())  
@@ -255,6 +278,8 @@ def start():
 
 
 def end(coord_x, coord_y):
+    global count_op
+    count_op += 1
     #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
     if map[coord_x][coord_y] == "#": 
         return True
@@ -263,31 +288,42 @@ def end(coord_x, coord_y):
     
 
 def controller():
-    global way, end_controller, location_x, location_y
+    global way, end_controller, location_x, location_y, count_op
     location_x = find_first_location()  
     #Ω(1) o fim do mapa está logo no começo
     #O(n) O fim do mapa está qualquer outra posição e será necessário percorrer para achar ele
+    
     while(end_controller == False): 
       if way == "right":
+        count_op += 1
         move_right(location_x, location_y)  
       if way == "left":
+        count_op += 1
         move_left(location_x, location_y)   
       if way == "up":
+        count_op += 1
         move_up(location_x, location_y) 
       if way == "down":
+        count_op += 1
         move_down(location_x, location_y)  
 
 
 
 # Função Main()
 def main():
+    global count_op
     #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
     os.system("cls") 
+    start_time = process_time()
     chosen_map = start()
     read_map(chosen_map) 
     #display_matrix() 
     controller() 
-    display_saved_money() 
+    display_saved_money()
+    end_time = process_time()
+    time = end_time-start_time
+    print(f"Tempo para ordenar o mapa {chosen_map}: {time} s")
+    print(f"Acontecer {count_op} operações no mapa {chosen_map}")
     exit() 
     
 if __name__ == "__main__":
