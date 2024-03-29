@@ -1,5 +1,7 @@
 import os
 
+#Versão 1 do relatório
+
 #Variáveis globais do mapa
 map = []
 location_x = 0
@@ -127,9 +129,7 @@ def move_up(coord_x, coord_y):
             location_x = i
             location_y = coord_y - 1    #Atualiza a localização em X e em Y
             break
-        
-
-        
+                
 #Função responsável por fazer o caminhamento para baixo na matriz    
 def move_down(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count

@@ -78,107 +78,109 @@ def test_slash(x,y):
 
 #Funções para caminhar na matriz       
 def move_right(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
+    global way, money, end_controller, location_x, location_y, count, count_op
+    count_op += 1
+    #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
+    accumulate_money(coord_x, coord_y)    
 
-    accumulate_money(coord_x, coord_y)    #Chama o método responsável por contar o dinheiro recuperado
-
-    if end(coord_x, coord_y):         #Chama o método responsável por testar se chegamos no "#""
-        end_controller = True   #Muda o controlador para True e volta para o loop inicial
+    if end(coord_x, coord_y):         
+        end_controller = True   
         return
     else:
-      if test_slash(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "/"
-          way = "up"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_slash(coord_x, coord_y): 
+          way = "up"  
           location_x = coord_x - 1
-          location_y = coord_y  #Atualiza a localização em X e em Y
+          location_y = coord_y  
           return
 
-      if test_backslah(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "\"
-          way = "down"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_backslah(coord_x, coord_y): 
+          way = "down"  
           location_x = coord_x + 1
-          location_y = coord_y  #Atualiza a localização em X e em Y
+          location_y = coord_y  
           return
       
       location_x = coord_x
       location_y = coord_y + 1
-  
 
-#Função responsável por fazer o caminhamento para a esquerda na matriz           
+
 def move_left(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
+    global way, money, end_controller, location_x, location_y, count, count_op
+    count_op += 1
+    #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
+    accumulate_money(coord_x, coord_y)   
 
-    accumulate_money(coord_x, coord_y)    #Chama o método responsável por contar o dinheiro recuperado
-
-    if end(coord_x, coord_y):         #Chama o método responsável por testar se chegamos no "#""
-        end_controller = True   #Muda o controlador para True e volta para o loop inicial
+    if end(coord_x, coord_y):         
+        end_controller = True   
         return
     else:
-      if test_slash(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "/"
-          way = "down"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_slash(coord_x, coord_y): 
+          way = "down"  
           location_x = coord_x + 1
-          location_y = coord_y  #Atualiza a localização em X e em Y
+          location_y = coord_y 
           return
         
-      if test_backslah(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "\"
-          way = "up"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_backslah(coord_x, coord_y): 
+          way = "up"  
           location_x = coord_x - 1
-          location_y = coord_y  #Atualiza a localização em X e em Y
+          location_y = coord_y 
           return
       
       location_x = coord_x
       location_y = coord_y - 1
            
-                           
-#Função responsável por fazer o caminhamento para cima na matriz    
+                              
 def move_up(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
-    
-    accumulate_money(coord_x, coord_y)    #Chama o método responsável por contar o dinheiro recuperado
+    global way, money, end_controller, location_x, location_y, count, count_op
+    count_op += 1
+    #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
+    accumulate_money(coord_x, coord_y)   
 
-    if end(coord_x, coord_y):         #Chama o método responsável por testar se chegamos no "#""
-        end_controller = True   #Muda o controlador para True e volta para o loop inicial
+    if end(coord_x, coord_y):         
+        end_controller = True   
         return
     else:
-      if test_slash(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "/"
-          way = "right"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_slash(coord_x, coord_y): 
+          way = "right"  
           location_x = coord_x
-          location_y = coord_y + 1    #Atualiza a localização em X e em Y
+          location_y = coord_y + 1   
           return
 
-      if test_backslah(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "\"
-          way = "left"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_backslah(coord_x, coord_y): 
+          way = "left"  
           location_x = coord_x
-          location_y = coord_y - 1    #Atualiza a localização em X e em Y
+          location_y = coord_y - 1   
           return
       location_x = coord_x - 1
       location_y = coord_y
         
 
-        
-#Função responsável por fazer o caminhamento para baixo na matriz    
 def move_down(coord_x, coord_y):
-    global way, money, end_controller, location_x, location_y, count
+    global way, money, end_controller, location_x, location_y, count, count_op
+    count_op += 1
+    #Θ(1) A Função inteira possui a complexidade constante no melhor e no pior caso
+    accumulate_money(coord_x, coord_y)   
 
-    accumulate_money(coord_x, coord_y)    #Chama o método responsável por contar o dinheiro recuperado
-
-    if end(coord_x, coord_y):         #Chama o método responsável por testar se chegamos no "#""
-        end_controller = True   #Muda o controlador para True e volta para o loop inicial
+    if end(coord_x, coord_y):         
+        end_controller = True   
         return
     else:
-      if test_slash(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "/"
-          way = "left"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_slash(coord_x, coord_y): 
+          way = "left"  
           location_x = coord_x
-          location_y = coord_y - 1    #Atualiza a localização em X e em Y
+          location_y = coord_y - 1   
           return
 
-      if test_backslah(coord_x, coord_y): #Chama o método responsável para saber se estamos passando por uma "\"
-          way = "right"  #Faz a troca para a nova direção correta na variável de controle de direção
+      if test_backslah(coord_x, coord_y): 
+          way = "right"  
           location_x = coord_x
-          location_y = coord_y + 1    #Atualiza a localização em X e em Y
+          location_y = coord_y + 1   
           return
     
       location_x = coord_x + 1
       location_y = coord_y
       
+
+
 #Funções relacionadas com dinheiro
 def display_saved_money():
     global money, count_op

@@ -1,5 +1,7 @@
 import os
 
+#Versão 2 do relatório
+
 #Variáveis globais do mapa
 map = []
 location_x = 0
@@ -39,8 +41,6 @@ def find_first_location():
             location = count
         count = count + 1 
     return location      #Retorna a coordenada em X(linha) do inicio do mapa 
-
-
 
 #Funções de verificação para as trocas de direção    
 #Fumção responsável por testar se estamos caminhando por uma "\\"
@@ -87,7 +87,6 @@ def move_right(coord_x, coord_y):
       location_x = coord_x
       location_y = coord_y + 1
   
-
 #Função responsável por fazer o caminhamento para a esquerda na matriz           
 def move_left(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
@@ -112,8 +111,7 @@ def move_left(coord_x, coord_y):
       
       location_x = coord_x
       location_y = coord_y - 1
-           
-                           
+                                 
 #Função responsável por fazer o caminhamento para cima na matriz    
 def move_up(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
@@ -137,8 +135,6 @@ def move_up(coord_x, coord_y):
           return
       location_x = coord_x - 1
       location_y = coord_y
-        
-
         
 #Função responsável por fazer o caminhamento para baixo na matriz    
 def move_down(coord_x, coord_y):

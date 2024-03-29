@@ -1,5 +1,7 @@
 import os
 
+#Versão 3 do relatório
+
 #Variáveis globais do mapa
 map = []
 location_x = 0
@@ -84,7 +86,6 @@ def move_right(coord_x, coord_y):
       
     move_right(coord_x, coord_y + 1)
   
-
 #Função responsável por fazer o caminhamento para a esquerda na matriz           
 def move_left(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
@@ -108,8 +109,7 @@ def move_left(coord_x, coord_y):
         return
       
     move_left(coord_x, coord_y - 1)
-           
-                           
+                                   
 #Função responsável por fazer o caminhamento para cima na matriz    
 def move_up(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
@@ -131,8 +131,7 @@ def move_up(coord_x, coord_y):
         return
     
     move_up(coord_x - 1, coord_y)
-        
-        
+              
 #Função responsável por fazer o caminhamento para baixo na matriz    
 def move_down(coord_x, coord_y):
     global way, money, end_controller, location_x, location_y, count
